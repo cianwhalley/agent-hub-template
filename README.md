@@ -11,9 +11,11 @@ Pair with **[cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-br
 Cursor Cloud Agents are great at one GitHub repo. An operator often needs **many** checkouts on one machine: docs, backends, a personal wiki. Put them in `config/repos.json`. The agent (Slack or IDE) ff-pulls them, edits, and opens PRs. A scheduled `repo-hygiene` job keeps trees current so neither face goes stale.
 
 ```text
-~/workspaces/your-hub          ← WORKSPACE / --worker-dir (this repo)
+~/workspaces/your-hub          ← WORKSPACE / first --worker-dir (picker label)
 ~/work/you/example-app         ← sibling from repos.json
 ```
+
+Extra `--worker-dir` roots register `repo=` routing. They do **not** appear as extra My Machines rows — pick the same worker name. See [ops/my-machines/README.md](ops/my-machines/README.md).
 
 Two Slack bots = two hub clones (ops vs family). See the bridge’s [workspaces](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/workspaces.md) doc.
 
@@ -42,7 +44,7 @@ Then:
 | `MEMORY.md` + `memory/` | Durable notes |
 | `config/repos.json` | Sibling registry |
 | `scripts/` | clone / sync / monitor / graphify |
-| `.cursor/skills/` | repo-hygiene, ship-work, workspace-sync, schedule |
+| `.cursor/skills/` | repo-hygiene, ship-work, workspace-sync, schedule, cloud-vps |
 | `.cursor/rules/` | always-on git + Graphify hygiene |
 | `schedules/` | Optional VPS tick (no LLM when idle) |
 | `ops/` | systemd units for worker + tick |
