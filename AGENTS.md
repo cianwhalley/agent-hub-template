@@ -7,7 +7,7 @@ This directory is the agent’s workspace. Read [SOUL.md](SOUL.md) and [USER.md]
 | Face | How |
 |------|-----|
 | Cursor IDE / web / iOS | Open this folder, or My Machines `worker=… repo=…` with `--worker-dir` = this path |
-| Slack | [cursor-slack-bridge](https://github.com/zenmindhacker/cursor-slack-bridge) `WORKSPACE` = this path |
+| Slack | [cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge) `WORKSPACE` = this path |
 | Tick | `schedules/run-tick.sh` on a systemd timer |
 
 Same disk. Same rules. Same sibling repos.
@@ -30,4 +30,4 @@ After you edit a registered repo, follow `.cursor/skills/ship-work/SKILL.md`. Do
 
 ## Secrets
 
-Do not print tokens. Optional loopback secrets proxy: see the bridge [credentials doc](https://github.com/zenmindhacker/cursor-slack-bridge/blob/main/docs/credentials.md).
+Do not print tokens. Optional loopback secrets proxy: see the bridge [credentials doc](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/credentials.md).
