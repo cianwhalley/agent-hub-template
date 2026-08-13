@@ -1,0 +1,15 @@
+---
+description: Query Graphify before blind codebase search
+alwaysApply: true
+---
+
+# Graphify first
+
+If `graphify-out/graph.json` exists in this hub, for architecture / “where is X” questions:
+
+1. Run `graphify query "<question>"` (or path/explain) against the merged graph
+2. Then use Glob/Grep only as needed to confirm
+
+If the graph is missing or stale, suggest `scripts/graphify-rebuild.sh` (or workspace-sync skill). Never commit `graphify-out/`.
+
+**Default hygiene:** after any Graphify run, ensure `graphify-out/` is in that repo’s `.gitignore` via `scripts/ensure-graphify-gitignore.sh`. Ship the gitignore change with `ship-work`.

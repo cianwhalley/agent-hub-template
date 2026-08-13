@@ -1,0 +1,9 @@
+node_modules/
+graphify-out/
+schedules/state.json
+schedules/runs.log
+.env
+*.token
+*.db
+.DS_Store
+coverage/

@@ -1,0 +1,15 @@
+[Unit]
+Description=Cursor My Machines worker (this hub)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/your-hub
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=%h/your-hub/ops/my-machines/start-worker.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

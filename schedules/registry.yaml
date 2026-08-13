@@ -1,0 +1,28 @@
+# jobs:
+#   id, enabled, cron (5-field), skill, slack (on_fail|always|never), optional prompt
+
+jobs:
+  - id: repo-hygiene
+    enabled: true
+    cron: "30 */4 * * *"
+    skill: repo-hygiene
+    slack: on_fail
+    prompt: |
+      source scripts/hub-root.sh
+      cd "$HUB_ROOT"
+      bash scripts/repo-monitor.sh
+      Auto ff-pull and clone are OK. Do NOT reset or force-merge foreign dirty trees.
+      If exit non-zero: ONE Slack via schedules/slack-post.sh — paste the monitor table.
+      Silent if only pulled / cloned / ok.
+
+  - id: graphify-rebuild
+    enabled: false
+    cron: "0 3 * * *"
+    skill: workspace-sync
+    slack: on_fail
+    prompt: |
+      source scripts/hub-root.sh
+      cd "$HUB_ROOT" && git pull --ff-only
+      bash scripts/repo-monitor.sh
+      bash scripts/graphify-rebuild.sh
+      Never commit graphify-out/.

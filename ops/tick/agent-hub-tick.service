@@ -1,0 +1,15 @@
+[Unit]
+Description=Agent hub schedule tick (due-check + headless agent if needed)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/your-hub
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HUB_SLACK_ENV_FILE=%h/.config/cursor-slack/main.env
+ExecStart=%h/your-hub/schedules/run-tick.sh
+Nice=10
+
+[Install]
+WantedBy=default.target

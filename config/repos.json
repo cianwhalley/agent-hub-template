@@ -1,0 +1,24 @@
+{
+  "root": "~/work/you",
+  "notes": "Sibling checkouts. Bootstrap: scripts/clone-repos.sh. Sync: scripts/sync-repos.sh / repo-monitor.sh. org=hub rows are this workspace — clone-repos skips them.",
+  "repos": [
+    {
+      "name": "your-hub",
+      "path": "~/workspaces/your-hub",
+      "git": "git@github.com:example/your-hub.git",
+      "https": "https://github.com/example/your-hub.git",
+      "defaultBranch": "main",
+      "graphify": true,
+      "org": "hub"
+    },
+    {
+      "name": "example-app",
+      "path": "~/work/you/example-app",
+      "git": "git@github.com:example/example-app.git",
+      "https": "https://github.com/example/example-app.git",
+      "defaultBranch": "main",
+      "graphify": true,
+      "org": "example"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+---
+description: Sync sibling repos before read/edit; ship via PR; no orphan dirt
+alwaysApply: true
+---
+
+# Multi-repo git hygiene
+
+1. **Start:** `bash scripts/sync-repos.sh` or `bash scripts/repo-monitor.sh` (ff-only / safe fixes). Dirty or diverged you did not cause → **stop and report** (no force).
+2. **Before focusing one repo:** `bash scripts/sync-repos.sh <name>`.
+3. **Edits:** feature branch from latest default branch.
+4. **End of turn if you changed files:** follow `.cursor/skills/ship-work/SKILL.md` — commit, push, `gh pr create`. Do not leave a dirty tree for the next agent.
+5. Skip auto-merge for secrets/infra; ask the operator.
+6. After merge: pull ff-only; Graphify when practical (`workspace-sync`).
+7. Scheduled drift: job `repo-hygiene` runs `scripts/repo-monitor.sh` and Slacks on attention.

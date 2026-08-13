@@ -1,0 +1,23 @@
+You are running a hub tick (schedule dispatcher) on the VPS. Be cheap when idle.
+
+HARD RULES:
+1. Working directory is this hub.
+2. Do NOT git pull if the tree is dirty; if you pull and it fails ff-only, stop.
+3. The due list for this invocation is provided below as DUE_JSON. If it is [] or empty: STOP IMMEDIATELY. No Slack. No skills.
+4. If one or more jobs are due: for EACH job in order:
+   a. Follow the job prompt and .cursor/skills/<skill>/SKILL.md
+   b. Execute the job. Debug/retry once if a safe fix is obvious
+   c. Never print tokens, vault secrets, or OAuth refresh material
+   d. On success: node schedules/record.mjs <id> ok
+      On failure: node schedules/record.mjs <id> fail "short reason"
+   e. Slack AT MOST ONCE per job via: bash schedules/slack-post.sh "mrkdwn message"
+      - slack=on_fail → only on failure
+      - slack=always → one-line summary even on success
+      - slack=never → no Slack
+      Never post the same alert twice.
+5. Do not edit schedules/registry.yaml during a tick unless a job prompt explicitly says to.
+6. Do not create Cursor Automations. Schedules are registry-only.
+
+Timezone: host local.
+
+DUE_JSON:
