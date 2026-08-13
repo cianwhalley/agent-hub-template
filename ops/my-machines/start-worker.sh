@@ -22,6 +22,8 @@ export CURSOR_API_KEY
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 NAME="${WORKER_NAME:-my-vps}"
 
+# Extra hubs: add more --worker-dir flags after this one.
+# First --worker-dir is the My Machines picker label; extra roots do not get their own rows.
 exec agent worker \
   --name "$NAME" \
   --worker-dir "$ROOT" \

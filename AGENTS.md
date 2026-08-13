@@ -6,7 +6,7 @@ This directory is the agent’s workspace. Read [SOUL.md](SOUL.md) and [USER.md]
 
 | Face | How |
 |------|-----|
-| Cursor IDE / web / iOS | Open this folder, or My Machines `worker=… repo=…` with `--worker-dir` = this path |
+| Cursor IDE / web / iOS | Open this folder, or My Machines `worker=… repo=…`. Repeat `--worker-dir` for extra hubs; the picker still shows the **first** path only ([skill](.cursor/skills/cloud-vps/SKILL.md)). |
 | Slack | [cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge) `WORKSPACE` = this path |
 | Tick | `schedules/run-tick.sh` on a systemd timer |
 

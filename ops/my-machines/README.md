@@ -28,4 +28,6 @@ systemctl --user enable --now agent-hub-worker
 
 4. Confirm at [cursor.com/agents](https://cursor.com/agents).
 
+`--worker-dir` is repeatable. The **first** path is the picker label (dashboard identity). Extra directories register `repo=` routing; Cursor does **not** add extra My Machines rows. From a secondary repo window, pick the same worker `--name`. See `.cursor/skills/cloud-vps/SKILL.md`. Skill: [`.cursor/skills/my-machines/SKILL.md`](../../.cursor/skills/my-machines/SKILL.md).
+
 Slack `WORKSPACE` should be this same directory. See [cursor-slack-bridge docs/my-machines.md](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/my-machines.md).
