@@ -1,6 +1,6 @@
 # Security policy
 
-Use [GitHub Private Vulnerability Reporting](https://github.com/zenmindhacker/agent-hub-template/security/advisories/new).
+Use [GitHub Private Vulnerability Reporting](https://github.com/cianwhalley/agent-hub-template/security/advisories/new).
 
 Do not file a public issue for token leaks, git-askpass bugs, or Slack posting that dumps secrets.
 

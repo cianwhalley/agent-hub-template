@@ -28,4 +28,4 @@ systemctl --user enable --now agent-hub-worker
 
 4. Confirm at [cursor.com/agents](https://cursor.com/agents).
 
-Slack `WORKSPACE` should be this same directory. See [cursor-slack-bridge docs/my-machines.md](https://github.com/zenmindhacker/cursor-slack-bridge/blob/main/docs/my-machines.md).
+Slack `WORKSPACE` should be this same directory. See [cursor-slack-bridge docs/my-machines.md](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/my-machines.md).

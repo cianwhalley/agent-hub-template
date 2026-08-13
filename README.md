@@ -4,7 +4,7 @@ A Cursor **hub**: the agent’s brain on disk. Clone it, make it yours, point Sl
 
 This is not an LLM framework. Cursor is the model and the harness. The hub is `SOUL.md`, skills, rules, and a registry of sibling git checkouts the agent is allowed to touch.
 
-Pair with **[cursor-slack-bridge](https://github.com/zenmindhacker/cursor-slack-bridge)** if you want Slack to be another face of this same workspace.
+Pair with **[cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge)** if you want Slack to be another face of this same workspace.
 
 ## Why a hub
 
@@ -15,12 +15,12 @@ Cursor Cloud Agents are great at one GitHub repo. An operator often needs **many
 ~/work/you/example-app         ← sibling from repos.json
 ```
 
-Two Slack bots = two hub clones (ops vs family). See the bridge’s [workspaces](https://github.com/zenmindhacker/cursor-slack-bridge/blob/main/docs/workspaces.md) doc.
+Two Slack bots = two hub clones (ops vs family). See the bridge’s [workspaces](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/workspaces.md) doc.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/zenmindhacker/agent-hub-template.git ~/workspaces/your-hub
+git clone https://github.com/cianwhalley/agent-hub-template.git ~/workspaces/your-hub
 cd ~/workspaces/your-hub
 # edit SOUL.md, USER.md, config/repos.json
 bash scripts/clone-repos.sh
@@ -29,7 +29,7 @@ bash scripts/clone-repos.sh
 Then:
 
 1. Cursor: open this folder, or start a My Machines worker (`ops/my-machines/`).
-2. Slack: set `WORKSPACE` to this path in [cursor-slack-bridge](https://github.com/zenmindhacker/cursor-slack-bridge).
+2. Slack: set `WORKSPACE` to this path in [cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge).
 3. Optional tick: `ops/tick/` + `schedules/registry.yaml` (ships `repo-hygiene` only).
 
 ## Layout
