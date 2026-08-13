@@ -44,7 +44,7 @@ Then:
 | `MEMORY.md` + `memory/` | Durable notes |
 | `config/repos.json` | Sibling registry |
 | `scripts/` | clone / sync / monitor / graphify |
-| `.cursor/skills/` | repo-hygiene, ship-work, workspace-sync, schedule, cloud-vps |
+| `.cursor/skills/` | repo-hygiene, ship-work, workspace-sync, schedule, my-machines |
 | `.cursor/rules/` | always-on git + Graphify hygiene |
 | `schedules/` | Optional VPS tick (no LLM when idle) |
 | `ops/` | systemd units for worker + tick |
