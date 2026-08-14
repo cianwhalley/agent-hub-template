@@ -1,17 +1,15 @@
 ---
 name: my-machines
-description: Run Cursor Cloud / IDE on a My Machines worker. Use when setting --worker-dir, sharing one worker across hubs, picking Remote Machines, or when a second repo is missing from the machine list.
+description: Run Cursor Cloud / IDE on a My Machines worker. Use when setting --worker-dir, picking Remote Machines, or when a second repo is missing from the machine list.
 ---
 
 # Cloud / My Machines
 
-Worker install: `ops/my-machines/`. Trigger with `worker=<name> repo=<github-owner/hub>`.
+Workers run as **`cursor-agent`** (no sudo) with `--worker-dir ~/cloud/<hub>`. Slack + tick use `~/workspaces/<hub>`. Same remotes, different trees. See `.cursor/rules/faces.mdc`.
 
-`--worker-dir` is **repeatable** (up to 20). The **first** path is assignment identity and what the IDE/dashboard shows. Extra roots register git remotes for routing; Cursor does **not** add a row per repo.
+One worker per hub. Cursor registers **one git remote per worker**; a second `--worker-dir` does not add a picker row.
 
-If a second hub is missing from **Run on → Remote Machines**, pick the existing worker (named after the first checkout) rather than adding a second `--name`. Confirm with `agent worker start --verbose` (`workspacePaths` / `x-repository-urls`).
-
-Do not start a worker on the laptop if the body already lives on a VPS.
+Do not start a worker as the admin/sudo user. Do not start a worker on the laptop if the body already lives on a VPS.
 
 ## See also
 

@@ -1,6 +1,6 @@
 ---
 name: ship-work
-description: After editing any registered repo, sync then commit and open a PR (or report blockers). Use when finishing code changes, or when the user says ship, commit, push, PR.
+description: After editing any registered repo, ff-pull then commit and push on the default branch (or report blockers).
 ---
 
 # Ship work (multi-repo)
@@ -9,11 +9,13 @@ description: After editing any registered repo, sync then commit and open a PR (
 
 ## Policy
 
+Stay on the default branch unless the operator asked for a branch.
+
 | Repo | Ship path |
 |------|-----------|
-| This hub | feature branch → PR → `gh pr merge --auto` when checks exist. Direct push to the default branch only if the operator explicitly says so. |
-| Siblings in `config/repos.json` | Always feature branch → PR |
-| Secrets / vault / infra | Commit OK; **ask the operator** before merge |
+| This hub | `git pull --ff-only` → commit on default → push |
+| Siblings in `config/repos.json` | Same |
+| Secrets / vault / infra | Commit OK; **ask the operator** before push if it changes live host units or secrets |
 
 Never force-push. Never commit `.env`, `*.token`, `credentials/`, or the contents of `graphify-out/` (do commit `.gitignore` lines that ignore `graphify-out/`).
 
@@ -25,16 +27,12 @@ bash scripts/sync-repos.sh <name>   # must be clean first; if YOU dirtied it, sk
 ```
 
 1. `git status` / `git diff` — confirm only intended files
-2. `git checkout -b <prefix>/<short-topic>` from up-to-date default branch
-3. `git add` relevant paths
-4. Commit with a short why-focused message (HEREDOC)
-5. `git push -u origin HEAD`
-6. `gh pr create` + `gh pr merge --auto` (skip auto-merge for secrets/infra)
-7. If `gh` is missing or auth fails → tell the operator the branch name
-
-## Multi-repo turns
-
-Ship **each** dirty registered repo, not only the hub. After merges: `bash scripts/sync-repos.sh` (or wait for `repo-hygiene`).
+2. Confirm you are on the default branch. Do not `checkout -b` unless asked.
+3. `git pull --ff-only`
+4. `git add` relevant paths
+5. Commit with a short why-focused message (HEREDOC)
+6. `git push origin HEAD`
+7. If `gh` is missing or auth fails → tell the operator
 
 ## Blockers (do not force)
 
