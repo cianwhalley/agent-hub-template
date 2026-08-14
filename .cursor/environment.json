@@ -1,0 +1,4 @@
+{
+  "install": "set -euo pipefail; command -v node >/dev/null; chmod +x scripts/*.sh; bash scripts/ensure-agent-tools.sh; echo install-ok",
+  "start": "export PATH=\"$HOME/.local/bin:$PATH\"; echo hub env ready"
+}
