@@ -35,4 +35,4 @@ Git: feature branch → PR. On the worker: `git pull --ff-only` before edit; don
 - Tick is every 15m — prefer cron minutes `0`, `15`, `30`, `45`
 - `slack`: `on_fail` | `always` | `never`
 
-See also: `.cursor/skills/my-machines/SKILL.md` (My Machines picker lists the first `--worker-dir` only).
+See also: `.cursor/skills/my-machines/SKILL.md` (one worker per hub).

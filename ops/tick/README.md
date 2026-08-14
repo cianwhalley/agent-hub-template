@@ -2,7 +2,7 @@
 
 Cursor Automations cannot target My Machines on personal plans. The clock lives on the VPS:
 
-1. Timer every 15m → `schedules/run-tick.sh`
+1. Timer every 15m → `schedules/run-tick.sh` (aborts if hub dirty; else `git pull --ff-only`)
 2. `due.mjs` empty → exit (no LLM)
 3. Else → `agent -p` with due jobs; Slack via `schedules/slack-post.sh`
 

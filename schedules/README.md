@@ -4,9 +4,9 @@ Source of truth for recurring work. **Clock = VPS systemd** (`ops/tick/`, every 
 
 ## Flow
 
-1. Timer → [`run-tick.sh`](run-tick.sh)
+1. Timer → [`run-tick.sh`](run-tick.sh) (dirty hub → abort; else ff-pull hub)
 2. [`due.mjs`](due.mjs) → `[]` → exit (no LLM)
-3. Else → `agent -p` with [`tick-prompt.txt`](tick-prompt.txt)
+3. Else → `agent -p` with [`tick-prompt.txt`](tick-prompt.txt) (jobs ff-pull siblings they touch)
 4. Slack → [`slack-post.sh`](slack-post.sh) (same bot token as cursor-slack-bridge)
 
 ## Files

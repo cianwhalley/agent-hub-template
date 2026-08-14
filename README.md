@@ -11,11 +11,12 @@ Pair with **[cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-br
 Cursor Cloud Agents are great at one GitHub repo. An operator often needs **many** checkouts on one machine: docs, backends, a personal wiki. Put them in `config/repos.json`. The agent (Slack or IDE) ff-pulls them, edits, and opens PRs. A scheduled `repo-hygiene` job keeps trees current so neither face goes stale.
 
 ```text
-~/slack-workspace/your-hub          ← WORKSPACE / first --worker-dir (picker label)
+~/slack-workspace/your-hub     ← Slack WORKSPACE + tick
+~/cursor-workspace/your-hub    ← My Machines --worker-dir (picker)
 ~/work/you/example-app         ← sibling from repos.json
 ```
 
-Extra `--worker-dir` roots register `repo=` routing. They do **not** appear as extra My Machines rows — pick the same worker name. See [ops/my-machines/README.md](ops/my-machines/README.md).
+**One worker per hub.** Siblings are on disk via `repos.json`, not extra `--worker-dir` roots. See [ops/my-machines/README.md](ops/my-machines/README.md).
 
 Two Slack bots = two hub clones (ops vs family). See the bridge’s [workspaces](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/workspaces.md) doc.
 

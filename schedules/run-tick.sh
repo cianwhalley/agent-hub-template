@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 # Cheap due-check; wake headless agent only when work is due.
 # Intended for systemd timer every 15 minutes.
+# cwd = this hub (--workspace "$ROOT"); --force --trust so ticks stay non-interactive.
 set -euo pipefail
 
 export PATH="${HOME}/.local/bin:/usr/local/bin:${PATH}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
+
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "run-tick: hub dirty — abort (will not merge over dirt)" >&2
+  exit 1
+fi
+if ! git pull --ff-only; then
+  echo "run-tick: git pull --ff-only failed — abort" >&2
+  exit 1
+fi
 
 ENV_FILE="${HUB_TICK_ENV_FILE:-$HOME/.config/agent-vault/worker.env}"
 if [[ -f "$ENV_FILE" ]]; then
@@ -39,5 +49,9 @@ if ! flock -n 9; then
   exit 0
 fi
 
-agent -p --force --trust --workspace "$ROOT" --output-format text "$PROMPT"
+AGENT_ARGS=(-p --force --trust --workspace "$ROOT" --output-format text)
+if [[ -n "${AGENT_MODEL:-}" ]]; then
+  AGENT_ARGS+=(--model "$AGENT_MODEL")
+fi
+agent "${AGENT_ARGS[@]}" "$PROMPT"
 echo "run-tick: agent finished"

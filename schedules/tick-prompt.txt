@@ -1,8 +1,8 @@
 You are running a hub tick (schedule dispatcher) on the VPS. Be cheap when idle.
 
 HARD RULES:
-1. Working directory is this hub.
-2. Do NOT git pull if the tree is dirty; if you pull and it fails ff-only, stop.
+1. Working directory is this hub (the Slack / tick checkout — not the Cloud worker tree, not the laptop).
+2. run-tick.sh already ff-pulled this hub. Before each job, `git pull --ff-only` every sibling repo the job touches. Dirty or not-ff → fail that job and Slack. Do not create branches. Stay on the default branch.
 3. The due list for this invocation is provided below as DUE_JSON. If it is [] or empty: STOP IMMEDIATELY. No Slack. No skills.
 4. If one or more jobs are due: for EACH job in order:
    a. Follow the job prompt and .cursor/skills/<skill>/SKILL.md
