@@ -4,7 +4,7 @@
   "repos": [
     {
       "name": "your-hub",
-      "path": "~/workspaces/your-hub",
+      "path": "~/slack-workspace/your-hub",
       "git": "git@github.com:example/your-hub.git",
       "https": "https://github.com/example/your-hub.git",
       "defaultBranch": "main",

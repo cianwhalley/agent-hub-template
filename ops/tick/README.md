@@ -12,7 +12,7 @@ As the user who should run ticks (often the same user as My Machines):
 
 ```bash
 mkdir -p ~/.config/systemd/user
-HUB="$HOME/workspaces/your-hub"   # this clone
+HUB="$HOME/slack-workspace/your-hub"   # this clone
 sed "s|%h/your-hub|$HUB|g" "$HUB/ops/tick/agent-hub-tick.service" \
   > ~/.config/systemd/user/agent-hub-tick.service
 cp "$HUB/ops/tick/agent-hub-tick.timer" ~/.config/systemd/user/

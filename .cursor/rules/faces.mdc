@@ -10,8 +10,8 @@ Same git remote. **Different checkouts.** Do not treat laptop, Slack, and Cloud 
 | Face | Typical path | Use |
 |------|--------------|-----|
 | Laptop IDE | the clone you opened | Edit + push git. Not the VPS tree. |
-| Slack + tick | `cursor-agent` `~/workspaces/<hub>` | Slack + scheduled jobs |
-| Cloud worker | `cursor-agent` `~/cloud/<hub>` | Cursor Cloud / web / phone |
+| Slack + tick | `cursor-agent` `~/slack-workspace/<hub>` | Slack + scheduled jobs |
+| Cloud worker | `cursor-agent` `~/cursor-workspace/<hub>` | Cursor Cloud / web / phone |
 
 Agents run as `cursor-agent` (no sudo). The admin user owns Docker / vault / host apt.
 

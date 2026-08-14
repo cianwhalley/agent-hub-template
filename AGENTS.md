@@ -7,8 +7,8 @@ This directory is the agent’s workspace. Read [SOUL.md](SOUL.md) and [USER.md]
 | Face | How |
 |------|-----|
 | Laptop IDE | The clone you opened. Edit + push git. Not the VPS tree. |
-| Slack + tick | `cursor-agent` `~/workspaces/<hub>` |
-| Cloud | `cursor-agent` `~/cloud/<hub>` via My Machines `worker=… repo=…` ([skill](.cursor/skills/my-machines/SKILL.md)) |
+| Slack + tick | `cursor-agent` `~/slack-workspace/<hub>` |
+| Cloud | `cursor-agent` `~/cursor-workspace/<hub>` via My Machines `worker=… repo=…` ([skill](.cursor/skills/my-machines/SKILL.md)) |
 
 Same remotes. **Different checkouts.** Agents have no sudo. See `.cursor/rules/faces.mdc`.
 

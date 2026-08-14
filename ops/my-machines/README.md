@@ -18,7 +18,7 @@ chmod 600 ~/.config/agent-vault/worker.env
 
 ```bash
 mkdir -p ~/.config/systemd/user
-HUB="$HOME/workspaces/your-hub"
+HUB="$HOME/slack-workspace/your-hub"
 sed "s|%h/your-hub|$HUB|g" "$HUB/ops/my-machines/agent-hub-worker.service" \
   > ~/.config/systemd/user/agent-hub-worker.service
 loginctl enable-linger "$USER"

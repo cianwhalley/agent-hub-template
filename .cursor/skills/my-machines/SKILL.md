@@ -5,7 +5,7 @@ description: Run Cursor Cloud / IDE on a My Machines worker. Use when setting --
 
 # Cloud / My Machines
 
-Workers run as **`cursor-agent`** (no sudo) with `--worker-dir ~/cloud/<hub>`. Slack + tick use `~/workspaces/<hub>`. Same remotes, different trees. See `.cursor/rules/faces.mdc`.
+Workers run as **`cursor-agent`** (no sudo) with `--worker-dir ~/cursor-workspace/<hub>`. Slack + tick use `~/slack-workspace/<hub>`. Same remotes, different trees. See `.cursor/rules/faces.mdc`.
 
 One worker per hub. Cursor registers **one git remote per worker**; a second `--worker-dir` does not add a picker row.
 
