@@ -5,11 +5,15 @@ alwaysApply: true
 
 # Multi-repo git hygiene
 
-1. **Start:** `bash scripts/sync-repos.sh` or `bash scripts/repo-monitor.sh` (ff-only / safe fixes). Dirty or diverged you did not cause → **stop and report** (no force).
+Applies to **Slack, Cloud, laptop, and ticks**. Never run skills on stale code.
+
+1. **Start of every turn:** `git pull --ff-only` on this hub. Then `bash scripts/sync-repos.sh` or `bash scripts/repo-monitor.sh` (ff-only). Dirty or diverged you did not cause → **stop and report** (no force, no merge).
 2. **Before focusing one repo:** `bash scripts/sync-repos.sh <name>`.
 3. **Edits:** stay on the default branch. Do **not** create a feature branch unless the operator explicitly asks.
-4. **Scheduled jobs / sync:** `git pull --ff-only` on the hub and every repo the job touches **before** running. If pull cannot fast-forward, stop — do not merge or rebase.
+4. **Scheduled jobs:** ff-pull the hub (tick wrapper) and every sibling the job touches before running. Dirty or not-ff → fail — do not merge or rebase.
 5. **End of turn if you changed files:** follow `.cursor/skills/ship-work/SKILL.md` — commit on the default branch, push. Do not leave a dirty tree.
 6. Skip push for secrets/infra that need a human; ask the operator.
 7. After push: Graphify when practical (`workspace-sync`).
 8. Scheduled drift: job `repo-hygiene` runs `scripts/repo-monitor.sh` and Slacks on attention.
+
+Slack hub and Cloud hub are different checkouts; sibling repos under `~/work/…` are shared.
