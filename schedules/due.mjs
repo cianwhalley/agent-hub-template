@@ -2,7 +2,9 @@
 /**
  * Cheap due-check for hub tick. No network.
  * Usage: node schedules/due.mjs [--json]
- * Prints JSON array of due job objects: [{ id, skill, slack, prompt }, ...]
+ * Prints JSON array of due job objects:
+ *   [{ id, skill, slack, prompt, model }, ...]
+ * model is optional in registry.yaml (omit → tick default AGENT_MODEL).
  * Exit 0 always (empty array = nothing to do).
  */
 import fs from "node:fs";
@@ -63,12 +65,13 @@ function parseRegistry(text) {
         skill: "",
         slack: "on_fail",
         prompt: "",
+        model: "",
       };
       continue;
     }
     if (!current) continue;
 
-    const kv = raw.match(/^    (enabled|cron|skill|slack):\s*(.+)\s*$/);
+    const kv = raw.match(/^    (enabled|cron|skill|slack|model):\s*(.+)\s*$/);
     if (kv) {
       const key = kv[1];
       let val = unquote(kv[2]);
@@ -189,6 +192,7 @@ function main() {
     skill: j.skill,
     slack: j.slack,
     prompt: j.prompt || "",
+    model: (j.model || "").trim(),
   }));
   process.stdout.write(JSON.stringify(out, null, 2) + "\n");
 }

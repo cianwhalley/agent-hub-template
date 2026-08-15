@@ -1,5 +1,7 @@
 # jobs:
-#   id, enabled, cron (5-field), skill, slack (on_fail|always|never), optional prompt
+#   id, enabled, cron (5-field), skill, slack (on_fail|always|never),
+#   optional model (Cursor id; omit → tick AGENT_MODEL; prefer non-fast),
+#   optional prompt
 
 jobs:
   - id: repo-hygiene

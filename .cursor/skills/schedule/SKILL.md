@@ -22,17 +22,19 @@ node schedules/record.mjs <id> ok      # usually done by the tick
 | Ask | Action |
 |-----|--------|
 | List jobs | Show ids, cron, enabled, slack from `registry.yaml` |
-| Schedule X | Add job: `id`, `enabled: true`, `cron` (5-field), `skill`, `slack`, optional `prompt` |
+| Schedule X | Add job: `id`, `enabled: true`, `cron` (5-field), `skill`, `slack`, optional `model`, optional `prompt` |
 | Pause / resume | `enabled: false` / `true` |
 | Run now | `node schedules/force.mjs <id>` or execute prompt in chat |
 | Change cadence | Edit `cron` |
+| Change model | Edit `model` (prefer non-fast). Omit → tick default. |
 
-Git: feature branch → PR. On the worker: `git pull --ff-only` before edit; don't force dirty trees.
+Git: stay on default branch unless asked for a branch. On the worker: `git pull --ff-only` before edit; don't force dirty trees.
 
 ## Cron tips
 
 - Host timezone = the VPS
 - Tick is every 15m — prefer cron minutes `0`, `15`, `30`, `45`
 - `slack`: `on_fail` | `always` | `never`
+- `model`: optional; tick groups due jobs by model (strips trailing `-fast`)
 
 See also: `.cursor/skills/my-machines/SKILL.md` (one worker per hub).

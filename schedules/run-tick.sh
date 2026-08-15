@@ -38,10 +38,6 @@ if [[ "$DUE_TRIMMED" == "[]" ]]; then
 fi
 
 echo "run-tick: due jobs — waking agent"
-PROMPT="$(cat schedules/tick-prompt.txt)
-${DUE_JSON}
-"
-
 LOCK="${XDG_RUNTIME_DIR:-/tmp}/agent-hub-tick.lock"
 exec 9>"$LOCK"
 if ! flock -n 9; then
@@ -49,9 +45,17 @@ if ! flock -n 9; then
   exit 0
 fi
 
-AGENT_ARGS=(-p --force --trust --workspace "$ROOT" --output-format text)
-if [[ -n "${AGENT_MODEL:-}" ]]; then
-  AGENT_ARGS+=(--model "$AGENT_MODEL")
-fi
-agent "${AGENT_ARGS[@]}" "$PROMPT"
+export AGENT_MODEL="${AGENT_MODEL:-cursor-grok-4.6-medium}"
+while IFS= read -r group_line; do
+  [[ -z "$group_line" ]] && continue
+  MODEL="$(jq -r '.model' <<<"$group_line")"
+  JOBS_JSON="$(jq '.jobs' <<<"$group_line")"
+  IDS="$(jq -r '[.[].id] | join(",")' <<<"$JOBS_JSON")"
+  echo "run-tick: model=${MODEL} jobs=${IDS}"
+  PROMPT="$(cat schedules/tick-prompt.txt)
+${JOBS_JSON}
+"
+  agent -p --force --trust --workspace "$ROOT" --output-format text --model "$MODEL" "$PROMPT"
+done < <(printf '%s' "$DUE_JSON" | node schedules/group-due-models.mjs)
+
 echo "run-tick: agent finished"
