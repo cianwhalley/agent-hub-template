@@ -4,7 +4,7 @@ A Cursor **hub**: the agent’s brain on disk. Clone it, make it yours, point Sl
 
 This is not an LLM framework. Cursor is the model and the harness. The hub is `SOUL.md`, skills, rules, and a registry of sibling git checkouts the agent is allowed to touch.
 
-Pair with **[cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge)** if you want Slack to be another face of this same workspace.
+Pair with **[cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge)** (≥ **v0.1.1**) if you want Slack to be another face of this same workspace. That release fixes a Slack double-delivery quirk where one `@mention` looked like a queued follow-up (“Still working…”).
 
 ## Why a hub
 
@@ -57,6 +57,7 @@ Then:
 - After **your** edits: follow `.cursor/skills/ship-work/SKILL.md` (branch → PR)
 - Never force-reset a dirty or diverged tree you did not create
 - Never commit `graphify-out/`
+- Cloud/VPS host tools: `bash scripts/ensure-agent-tools.sh` (via `.cursor/environment.json`) — installs musl `gws` on Ubuntu 22.04; do not use `npm i -g @googleworkspace/cli` there
 
 GitHub auth: SSH key on the VPS, or `HUB_GITHUB_TOKEN_FILE` (default `~/.config/agent-hub/github.token`) for HTTPS.
 
