@@ -8,6 +8,8 @@ Type=oneshot
 WorkingDirectory=%h/your-hub
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
 Environment=HUB_SLACK_ENV_FILE=%h/.config/cursor-slack/main.env
+# Background ticks: prefer medium/non-fast. Keep high-fast for Slack AGENT_MODEL only.
+Environment=AGENT_MODEL=cursor-grok-4.6-medium
 ExecStart=%h/your-hub/schedules/run-tick.sh
 Nice=10
 
