@@ -33,7 +33,7 @@ Then:
 
 1. Cursor: open this folder, or start a My Machines worker (`ops/my-machines/`).
 2. Slack: set `WORKSPACE` to this path in [cursor-slack-bridge](https://github.com/cianwhalley/cursor-slack-bridge).
-3. Optional tick: `ops/tick/` + `schedules/registry.yaml` (ships `repo-hygiene` only).
+3. Optional tick: `ops/tick/` + `schedules/registry.yaml` (ships `repo-hygiene` only). Per-job Cursor model via optional `model:` — see [schedules/README.md](schedules/README.md).
 
 ## Layout
 

@@ -4,7 +4,9 @@ Cursor Automations cannot target My Machines on personal plans. The clock lives 
 
 1. Timer every 15m → `schedules/run-tick.sh` (aborts if hub dirty; else `git pull --ff-only`)
 2. `due.mjs` empty → exit (no LLM)
-3. Else → `agent -p` with due jobs; Slack via `schedules/slack-post.sh`
+3. Else → one `agent -p` per **model group** (registry optional `model:`; default `AGENT_MODEL`); Slack via `schedules/slack-post.sh`
+
+Unit default: `Environment=AGENT_MODEL=cursor-grok-4.6-medium` (background). Override per job in `schedules/registry.yaml`. Prefer non-fast; the dispatcher strips `-fast`. Keep interactive Slack on high-fast in the bridge env.
 
 ## Install
 
