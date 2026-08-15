@@ -151,6 +151,3 @@ echo "Done."
 echo "  Linear:   bash ~/.cursor/skills/${PREFIX}linear/scripts/linear-router.sh tutor my"
 echo "  Google:   source scripts/vault-env.sh && vault_run -- ~/.cursor/skills/${PREFIX}google-workspace/bin/gws-ct …"
 echo "  eSign:    bash scripts/esignatures.sh templates list"
-if [[ -z "$PREFIX" ]] && [[ -f "$HOME/.config/agent-vault/agent-cleo-spike.token" ]]; then
-  echo "Note: multi-vault laptop detected (cleo token present). Re-run with --prefix silas- if personal skills should not shadow Cleo."
-fi
