@@ -1,0 +1,5 @@
+{
+  "vault": "REPLACE_ME",
+  "tokenFile": "~/.config/agent-vault/agent-REPLACE_ME.token",
+  "notes": "Set vault + tokenFile for this hub. Agents are scoped by their access token; this file guides multi-vault laptop operators."
+}
