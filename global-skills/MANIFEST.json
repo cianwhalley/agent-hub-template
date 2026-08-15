@@ -1,0 +1,7 @@
+{
+  "name": "hub-global-skills",
+  "description": "Curated personal-global skills for this hub. Fill skills[] then ship install-global-skills.",
+  "installDefault": "~/.cursor/skills",
+  "alsoClaude": "~/.claude/skills",
+  "skills": []
+}

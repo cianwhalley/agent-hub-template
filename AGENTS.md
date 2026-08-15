@@ -33,3 +33,5 @@ After you edit a registered repo, follow `.cursor/skills/ship-work/SKILL.md`. Do
 Do not print tokens. Primary keystore: Agent Vault. Local files hold **agent access tokens only**. Set `config/vault.json` + `scripts/vault-env.sh` (see template). Optional loopback secrets proxy: see the bridge [credentials doc](https://github.com/cianwhalley/cursor-slack-bridge/blob/main/docs/credentials.md).
 
 Multi-vault laptops: always source the checkout’s `vault-env.sh` so the correct token is selected. Single-token agents are scoped by the access key alone.
+
+Personal Cursor skills that are not hub-local: put them in `global-skills/` + `MANIFEST.json`, then `bash scripts/install-global-skills.sh` (see `.cursor/skills/install-global-skills`).
