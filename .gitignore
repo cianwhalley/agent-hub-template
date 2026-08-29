@@ -6,4 +6,5 @@ schedules/runs.log
 *.token
 *.db
 .DS_Store
-coverage/
+.slack-inbox/
+
