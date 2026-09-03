@@ -1,6 +1,7 @@
 # jobs:
 #   id, enabled, cron (5-field), skill, slack (on_fail|always|never),
 #   optional model (Cursor id; omit → tick AGENT_MODEL; prefer non-fast),
+#   optional fallback_model (omit → AGENT_MODEL_FALLBACK; off disables),
 #   optional prompt
 
 jobs:

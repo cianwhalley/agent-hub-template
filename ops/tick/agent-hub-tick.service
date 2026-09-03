@@ -10,6 +10,7 @@ Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
 Environment=HUB_SLACK_ENV_FILE=%h/.config/cursor-slack/main.env
 # Background ticks: prefer medium/non-fast. Keep high-fast for Slack AGENT_MODEL only.
 Environment=AGENT_MODEL=cursor-grok-4.6-medium
+Environment=AGENT_MODEL_FALLBACK=gpt-5.6-sol-medium
 ExecStart=%h/your-hub/schedules/run-tick.sh
 Nice=10
 

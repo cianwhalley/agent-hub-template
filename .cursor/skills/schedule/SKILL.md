@@ -26,7 +26,7 @@ node schedules/record.mjs <id> ok      # usually done by the tick
 | Pause / resume | `enabled: false` / `true` |
 | Run now | `node schedules/force.mjs <id>` or execute prompt in chat |
 | Change cadence | Edit `cron` |
-| Change model | Edit `model` (prefer non-fast). Omit → tick default. |
+| Change model | Edit `model` / `fallback_model` (prefer non-fast). Defaults: Grok medium → GPT-5.6 Sol medium. |
 
 Git: stay on default branch unless asked for a branch. On the worker: `git pull --ff-only` before edit; don't force dirty trees.
 
@@ -35,6 +35,7 @@ Git: stay on default branch unless asked for a branch. On the worker: `git pull 
 - Host timezone = the VPS
 - Tick is every 15m — prefer cron minutes `0`, `15`, `30`, `45`
 - `slack`: `on_fail` | `always` | `never`
-- `model`: optional; tick groups due jobs by model (strips trailing `-fast`)
+- `model` / `fallback_model`: optional; `fallback_model: off` disables retry for one job
+- Jobs run separately. Final model failure is recorded, posted directly to Slack, and fails the tick service.
 
 See also: `.cursor/skills/my-machines/SKILL.md` (one worker per hub).
