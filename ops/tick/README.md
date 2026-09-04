@@ -6,7 +6,7 @@ Cursor Automations cannot target My Machines on personal plans. The clock lives 
 2. `due.mjs` empty → exit (no LLM)
 3. Else → one `agent -p` per **model group** (registry optional `model:`; default `AGENT_MODEL`); Slack via `schedules/slack-post.sh`
 
-Unit defaults: `AGENT_MODEL=cursor-grok-4.6-medium` and `AGENT_MODEL_FALLBACK=gpt-5.6-sol-medium`. Override either per job with `model:` / `fallback_model:` (`off` disables fallback). Jobs run separately; provider/usage failures retry once. Final failure is recorded, posted directly to Slack, and exits non-zero.
+Unit defaults: `AGENT_MODEL=cursor-grok-4.6-medium` and `AGENT_MODEL_FALLBACK=latest,sonnet,sol` (newer same-options Grok → Sonnet 5 → GPT Sol). Override either per job with `model:` / `fallback_model:` (`off` disables fallback). Jobs run separately; retired / rate-limited / degraded models walk the chain. Final failure is recorded, posted directly to Slack, and exits non-zero.
 
 ## Install
 

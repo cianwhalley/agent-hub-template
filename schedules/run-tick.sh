@@ -46,11 +46,12 @@ if ! flock -n 9; then
 fi
 
 export AGENT_MODEL="${AGENT_MODEL:-cursor-grok-4.6-medium}"
-export AGENT_MODEL_FALLBACK="${AGENT_MODEL_FALLBACK:-gpt-5.6-sol-medium}"
+export AGENT_MODEL_FALLBACK="${AGENT_MODEL_FALLBACK:-latest,sonnet,sol}"
 FAILED=0
 while IFS= read -r group_line; do
   [[ -z "$group_line" ]] && continue
   MODEL="$(jq -r '.model' <<<"$group_line")"
+  FALLBACK_SPECS="$(jq -r '(.fallbackSpecs // []) | join(",")' <<<"$group_line")"
   FALLBACK_MODEL="$(jq -r '.fallbackModel' <<<"$group_line")"
   JOBS_JSON="$(jq '.jobs' <<<"$group_line")"
   IDS="$(jq -r '[.[].id] | join(",")' <<<"$JOBS_JSON")"
@@ -64,24 +65,32 @@ ${JOBS_JSON}
     continue
   fi
 
-  MODEL_FAILURE_RE='resource_exhausted|retriableerror|connection lost|out of usage|actionrequirederror|service unavailable|temporarily unavailable|model.*unavailable|provider.*degraded|overloaded|at capacity|upstream error|bad gateway|gateway timeout'
-  if [[ -n "$FALLBACK_MODEL" && "$FALLBACK_MODEL" != "$MODEL" ]] &&
-    grep -Eiq "$MODEL_FAILURE_RE" "$PRIMARY_LOG"; then
-    echo "run-tick: primary unavailable; retrying jobs=${IDS} model=${FALLBACK_MODEL}" >&2
-    FALLBACK_LOG="$(mktemp)"
-    if agent -p --force --trust --workspace "$ROOT" --output-format text --model "$FALLBACK_MODEL" "$PROMPT" 2>&1 | tee "$FALLBACK_LOG"; then
-      rm -f "$PRIMARY_LOG" "$FALLBACK_LOG"
-      continue
-    fi
-    rm -f "$FALLBACK_LOG"
+  TRIED="$MODEL"
+  HOP_OK=0
+  if [[ -n "$FALLBACK_SPECS" ]]; then
+    while IFS= read -r HOP; do
+      [[ -z "$HOP" || "$HOP" == "$MODEL" ]] && continue
+      echo "run-tick: primary unavailable; retrying jobs=${IDS} model=${HOP}" >&2
+      HOP_LOG="$(mktemp)"
+      if agent -p --force --trust --workspace "$ROOT" --output-format text --model "$HOP" "$PROMPT" 2>&1 | tee "$HOP_LOG"; then
+        rm -f "$PRIMARY_LOG" "$HOP_LOG"
+        HOP_OK=1
+        break
+      fi
+      TRIED="${TRIED}, ${HOP}"
+      rm -f "$HOP_LOG"
+    done < <(node schedules/model-chain.mjs --primary "$MODEL" --error-file "$PRIMARY_LOG" --specs "$FALLBACK_SPECS" --slow)
+  fi
+  if [[ "$HOP_OK" -eq 1 ]]; then
+    continue
   fi
 
   rm -f "$PRIMARY_LOG"
   FAILED=1
-  node schedules/record.mjs "$IDS" fail "agent models failed: primary=$MODEL fallback=${FALLBACK_MODEL:-off}" || true
+  node schedules/record.mjs "$IDS" fail "agent models failed: tried=${TRIED}" || true
   schedules/slack-post.sh "❌ *scheduled job failed* — \`${IDS}\`
-Primary: \`${MODEL}\` · fallback: \`${FALLBACK_MODEL:-off}\`
-Both model attempts failed (or fallback was not eligible). Inspect the tick service journal." ||
+Tried: \`${TRIED}\` (specs \`${FALLBACK_MODEL:-off}\`)
+All model attempts failed (or fallback was not eligible). Inspect the tick service journal." ||
     echo "run-tick: CRITICAL — job failure Slack alert also failed" >&2
 done < <(printf '%s' "$DUE_JSON" | node schedules/group-due-models.mjs)
 
